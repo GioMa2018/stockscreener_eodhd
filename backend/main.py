@@ -125,20 +125,152 @@ async def get_eod_data(symbol: str, period: str = "d", from_date: Optional[str] 
     return MOCK_EOD_DATA
 
 
+MOCK_FUNDAMENTALS = {
+    "General": {
+        "Code": "AAPL", "Name": "Apple Inc", "Exchange": "NASDAQ",
+        "Sector": "Technology", "Industry": "Consumer Electronics",
+        "Description": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide.",
+        "WebURL": "https://www.apple.com", "LogoURL": None,
+        "IPODate": "1980-12-12", "FiscalYearEnd": "September",
+        "Currency": "USD", "Country": "USA",
+    },
+    "Highlights": {
+        "MarketCapitalization": 2950000000000,
+        "MarketCapitalizationMln": 2950000,
+        "EBITDA": 125820000000,
+        "PERatio": 31.2,
+        "PEGRatio": 2.8,
+        "WallStreetTargetPrice": 210.0,
+        "BookValue": 4.25,
+        "DividendShare": 0.96,
+        "DividendYield": 0.005,
+        "EarningsShare": 6.13,
+        "EPSEstimateCurrentYear": 6.58,
+        "EPSEstimateNextYear": 7.12,
+        "EPSEstimateNextQuarter": 1.92,
+        "EPSEstimateCurrentQuarter": 1.60,
+        "MostRecentQuarter": "2024-03-31",
+        "ProfitMargin": 0.254,
+        "OperatingMarginTTM": 0.301,
+        "ReturnOnAssetsTTM": 0.222,
+        "ReturnOnEquityTTM": 1.601,
+        "RevenueTTM": 383285000000,
+        "RevenuePerShareTTM": 24.37,
+        "QuarterlyRevenueGrowthYOY": 0.051,
+        "GrossProfitTTM": 169148000000,
+        "DilutedEpsTTM": 6.13,
+        "QuarterlyEarningsGrowthYOY": 0.033,
+        "52WeekHigh": 199.62,
+        "52WeekLow": 164.08,
+        "50DayMA": 187.23,
+        "200DayMA": 181.45,
+        "AnalystRating": "Buy",
+        "AnalystTargetPrice": 210.50,
+    },
+    "Valuation": {
+        "TrailingPE": 31.2,
+        "ForwardPE": 28.8,
+        "PriceSalesTTM": 7.69,
+        "PriceBookMRQ": 44.58,
+        "EnterpriseValue": 2891000000000,
+        "EnterpriseValueRevenue": 7.54,
+        "EnterpriseValueEbitda": 22.98,
+    },
+    "Technicals": {
+        "Beta": 1.24,
+        "52WeekHigh": 199.62,
+        "52WeekLow": 164.08,
+        "50DayMA": 187.23,
+        "200DayMA": 181.45,
+        "SharesShort": 98230000,
+        "SharesShortPriorMonth": 102450000,
+        "ShortRatio": 1.23,
+        "ShortPercent": 0.0062,
+    },
+    "SharesStats": {
+        "SharesOutstanding": 15441880000,
+        "SharesFloat": 15330000000,
+        "PercentInsiders": 0.07,
+        "PercentInstitutions": 60.84,
+        "SharesShortPriorMonth": 102450000,
+        "ShortRatio": 1.23,
+        "ShortPercent": 0.0062,
+    },
+    "AnalystRatings": {
+        "Rating": 4.2,
+        "TargetPrice": 210.50,
+        "StrongBuy": 18,
+        "Buy": 12,
+        "Hold": 8,
+        "Sell": 2,
+        "StrongSell": 0,
+    },
+    "Earnings": {
+        "History": {
+            "2024-03-31": {"date": "2024-03-31", "epsActual": 1.53, "epsEstimate": 1.50, "epsDifference": 0.03, "surprisePercent": 2.0},
+            "2023-12-31": {"date": "2023-12-31", "epsActual": 2.18, "epsEstimate": 2.10, "epsDifference": 0.08, "surprisePercent": 3.8},
+            "2023-09-30": {"date": "2023-09-30", "epsActual": 1.46, "epsEstimate": 1.39, "epsDifference": 0.07, "surprisePercent": 5.0},
+            "2023-06-30": {"date": "2023-06-30", "epsActual": 1.26, "epsEstimate": 1.19, "epsDifference": 0.07, "surprisePercent": 5.9},
+            "2023-03-31": {"date": "2023-03-31", "epsActual": 1.52, "epsEstimate": 1.43, "epsDifference": 0.09, "surprisePercent": 6.3},
+            "2022-12-31": {"date": "2022-12-31", "epsActual": 1.88, "epsEstimate": 1.94, "epsDifference": -0.06, "surprisePercent": -3.1},
+            "2022-09-30": {"date": "2022-09-30", "epsActual": 1.29, "epsEstimate": 1.27, "epsDifference": 0.02, "surprisePercent": 1.6},
+            "2022-06-30": {"date": "2022-06-30", "epsActual": 1.20, "epsEstimate": 1.16, "epsDifference": 0.04, "surprisePercent": 3.4},
+        },
+        "Trend": {
+            "2024-12-31": {"period": "2024-12-31", "growth": "0.07", "earningsEstimateAvg": "7.12", "revenueEstimateAvg": "405000000000"},
+            "2024-09-30": {"period": "2024-09-30", "growth": "0.06", "earningsEstimateAvg": "6.58", "revenueEstimateAvg": "390000000000"},
+        },
+        "Annual": {
+            "2023-09-30": {"date": "2023-09-30", "epsActual": 6.13},
+            "2022-09-30": {"date": "2022-09-30", "epsActual": 6.11},
+            "2021-09-30": {"date": "2021-09-30", "epsActual": 5.61},
+            "2020-09-30": {"date": "2020-09-30", "epsActual": 3.28},
+        },
+    },
+    "Financials": {
+        "Income_Statement": {
+            "yearly": {
+                "2023-09-30": {
+                    "date": "2023-09-30", "totalRevenue": "383285000000",
+                    "grossProfit": "169148000000", "ebit": "114301000000",
+                    "netIncome": "96995000000",
+                },
+                "2022-09-30": {
+                    "date": "2022-09-30", "totalRevenue": "394328000000",
+                    "grossProfit": "170782000000", "ebit": "119437000000",
+                    "netIncome": "99803000000",
+                },
+                "2021-09-30": {
+                    "date": "2021-09-30", "totalRevenue": "365817000000",
+                    "grossProfit": "152836000000", "ebit": "108949000000",
+                    "netIncome": "94680000000",
+                },
+            }
+        }
+    },
+}
+
+
 @app.get("/api/fundamentals/{symbol}")
 async def get_fundamentals(symbol: str):
     sym = normalize_symbol(symbol)
     url = f"{EODHD_BASE_URL}/fundamentals/{sym}"
-    params = {"api_token": EODHD_API_KEY, "fmt": "json",
-              "filter": "Highlights,Valuation,Technicals,SharesStats"}
+    params = {
+        "api_token": EODHD_API_KEY,
+        "fmt": "json",
+        "filter": "General,Highlights,Valuation,Technicals,SharesStats,AnalystRatings,Earnings,Financials::Income_Statement::yearly",
+    }
     try:
-        async with httpx.AsyncClient(timeout=15.0) as client:
+        async with httpx.AsyncClient(timeout=20.0) as client:
             resp = await client.get(url, params=params)
             if resp.status_code == 200:
-                return resp.json()
+                data = resp.json()
+                # Return only if it has real content
+                if data and isinstance(data, dict) and data.get("General"):
+                    return data
     except Exception:
         pass
-    return {}
+    return MOCK_FUNDAMENTALS
 
 
 @app.get("/api/search")

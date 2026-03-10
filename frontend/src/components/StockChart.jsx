@@ -79,8 +79,9 @@ export default function StockChart({ symbol }) {
   const changePct  = change && priceStart ? (change / priceStart) * 100 : null
   const isPositive = change == null || change >= 0
 
-  const highlights  = fundamentals?.Highlights ?? {}
-  const valuation   = fundamentals?.Valuation ?? {}
+  const highlights  = fundamentals?.Highlights    ?? {}
+  const valuation   = fundamentals?.Valuation     ?? {}
+  const technicals  = fundamentals?.Technicals    ?? {}
 
   const strokeColor = isPositive ? '#26a69a' : '#ef5350'
   const fillStart   = isPositive ? 'rgba(38,166,154,0.25)' : 'rgba(239,83,80,0.25)'
@@ -144,14 +145,16 @@ export default function StockChart({ symbol }) {
 
       {/* Key stats bar */}
       {fundamentals && (
-        <div className="grid grid-cols-4 sm:grid-cols-6 gap-px bg-tv-border rounded-lg overflow-hidden mb-4">
+        <div className="grid grid-cols-4 sm:grid-cols-8 gap-px bg-tv-border rounded-lg overflow-hidden mb-4">
           {[
-            { label: 'Mkt Cap',      val: formatMarketCap(highlights.MarketCapitalization) },
-            { label: 'P/E',          val: highlights.PERatio ? Number(highlights.PERatio).toFixed(1) : '—' },
-            { label: 'EPS',          val: highlights.EarningsShare ? `$${Number(highlights.EarningsShare).toFixed(2)}` : '—' },
-            { label: '52W High',     val: formatPrice(highlights['52WeekHigh']) },
-            { label: '52W Low',      val: formatPrice(highlights['52WeekLow']) },
-            { label: 'Div Yield',    val: highlights.DividendYield ? `${(highlights.DividendYield * 100).toFixed(2)}%` : '—' },
+            { label: 'Mkt Cap',       val: formatMarketCap(highlights.MarketCapitalization) },
+            { label: 'P/E',           val: valuation.TrailingPE  ? Number(valuation.TrailingPE).toFixed(1)  : highlights.PERatio ? Number(highlights.PERatio).toFixed(1) : '—' },
+            { label: 'Fwd P/E',       val: valuation.ForwardPE   ? Number(valuation.ForwardPE).toFixed(1)   : '—' },
+            { label: 'EPS (TTM)',      val: highlights.EarningsShare ? `$${Number(highlights.EarningsShare).toFixed(2)}` : '—' },
+            { label: 'EPS Est.',       val: highlights.EPSEstimateCurrentYear ? `$${Number(highlights.EPSEstimateCurrentYear).toFixed(2)}` : '—' },
+            { label: '52W High',       val: formatPrice(technicals['52WeekHigh'] ?? highlights['52WeekHigh']) },
+            { label: '52W Low',        val: formatPrice(technicals['52WeekLow']  ?? highlights['52WeekLow']) },
+            { label: 'Beta',           val: technicals.Beta ? Number(technicals.Beta).toFixed(2) : '—' },
           ].map(s => (
             <div key={s.label} className="bg-tv-surface px-3 py-2">
               <p className="tv-label text-xs mb-1">{s.label}</p>

@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #131722;
+    color: #d1d4dc;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Trebuchet MS', sans-serif;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #131722;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2e39;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #363a45;
+  }
+}
+
+@layer components {
+  .tv-input {
+    @apply bg-tv-surface border border-tv-border text-tv-text rounded px-3 py-2 text-sm
+           focus:outline-none focus:border-tv-blue transition-colors placeholder-tv-muted;
+  }
+
+  .tv-btn {
+    @apply bg-tv-blue hover:bg-tv-blue-h text-white rounded px-4 py-2 text-sm font-medium
+           transition-colors cursor-pointer border-0;
+  }
+
+  .tv-btn-ghost {
+    @apply bg-transparent hover:bg-tv-border text-tv-muted hover:text-tv-text rounded px-3 py-2 text-sm
+           transition-colors cursor-pointer border border-tv-border;
+  }
+
+  .tv-card {
+    @apply bg-tv-surface border border-tv-border rounded-lg;
+  }
+
+  .tv-label {
+    @apply text-tv-muted text-xs uppercase tracking-wider font-medium;
+  }
+}

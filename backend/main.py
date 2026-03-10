@@ -20,7 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-EODHD_API_KEY = os.getenv("EODHD_API_KEY", "6925d988009038.86160182")
+EODHD_API_KEY = os.getenv("EODHD_API_KEY", "your_api_key")
 EODHD_BASE_URL = "https://eodhd.com/api"
 
 # -------------------------------------------------------------------

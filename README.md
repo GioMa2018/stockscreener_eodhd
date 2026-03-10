@@ -131,3 +131,6 @@ curl -X POST "http://localhost:8000/api/ai-query" \
 - **Frontend**: React 18, Vite, TailwindCSS, Recharts, Axios
 - **Backend**: Python FastAPI, httpx, pydantic
 - **Data**: EODHD Financial APIs
+
+Built with EODHD Financial APIs — get your free API key and start building:
+https://eodhd.com/?via=kmg&ref1=Meneses&utm_source=medium&utm_medium=post&utm_campaign=how-i-built-a-stock-screener-with-ai-using-vibe-coding-and-a-financial-data-api&utm_content=Meneses

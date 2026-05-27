@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { runAIQuery } from '../api/client'
 
 const EXAMPLES = [
-  'Profitable tech companies with high growth and low debt',
+  'Empresas tecnológicas rentables con alto crecimiento y poca deuda',
   'Large cap value stocks with P/E below 20',
-  'High ROE companies with no debt',
-  'Mega cap growth stocks',
+  'Mega cap con alto ROE y sin deuda',
+  'Acciones de crecimiento con P/E menor a 30',
 ]
 
 export default function AIQuery({ onFiltersApplied }) {
@@ -92,9 +92,15 @@ export default function AIQuery({ onFiltersApplied }) {
 
       {/* Result */}
       {result && (
-        <div className="mt-3 p-3 bg-tv-blue/10 border border-tv-blue/30 rounded-lg">
-          <p className="text-tv-blue text-xs font-medium mb-1.5">{result.description}</p>
-          {result.labels?.length > 0 && (
+        <div className={`mt-3 p-3 rounded-lg border ${
+          result.labels?.length > 0
+            ? 'bg-tv-blue/10 border-tv-blue/30'
+            : 'bg-amber-500/10 border-amber-500/30'
+        }`}>
+          <p className={`text-xs font-medium mb-1.5 ${result.labels?.length > 0 ? 'text-tv-blue' : 'text-amber-500'}`}>
+            {result.description}
+          </p>
+          {result.labels?.length > 0 ? (
             <div className="flex flex-wrap gap-1">
               {result.labels.map(l => (
                 <span key={l} className="text-xs bg-tv-blue/20 text-tv-blue px-2 py-0.5 rounded-full">
@@ -102,6 +108,10 @@ export default function AIQuery({ onFiltersApplied }) {
                 </span>
               ))}
             </div>
+          ) : (
+            <p className="text-amber-500/80 text-xs">
+              Intenta ser más específico: "empresas con P/E menor a 20 y ROE mayor a 15%"
+            </p>
           )}
         </div>
       )}

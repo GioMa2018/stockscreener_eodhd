@@ -17,7 +17,13 @@ export const searchStocks = (q) =>
 export const runScreener = (filters = {}) =>
   api.get('/screener', { params: filters }).then(r => r.data)
 
+export const runScreenerPage = (filters = {}, offset = 0) =>
+  api.get('/screener', { params: { ...filters, offset, limit: 50 } }).then(r => r.data)
+
 export const runAIQuery = (query) =>
   api.post('/ai-query', { query }).then(r => r.data)
+
+export const checkHealth = () =>
+  api.get('/health').then(r => r.data).catch(() => ({ data_source: 'mock' }))
 
 export default api

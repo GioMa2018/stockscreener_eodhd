@@ -5,7 +5,7 @@ import os
 import json
 import re
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,14 +14,18 @@ app = FastAPI(title="Stock Screener API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000", "*"],
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
 )
 
-EODHD_API_KEY = os.getenv("EODHD_API_KEY", "your_api_key")
+EODHD_API_KEY = os.getenv("EODHD_API_KEY", "")
 EODHD_BASE_URL = "https://eodhd.com/api"
+
+if not EODHD_API_KEY:
+    import warnings
+    warnings.warn("EODHD_API_KEY not set — falling back to mock data for all requests")
 
 # -------------------------------------------------------------------
 # Mock data fallback (used when EODHD API is unavailable)
@@ -353,7 +357,7 @@ async def screen_stocks(
 
 
 class AIQueryRequest(BaseModel):
-    query: str
+    query: str = Field(..., min_length=1, max_length=500)
 
 
 @app.post("/api/ai-query")
